@@ -1,11 +1,11 @@
 {
-  "name": "Analizador de Mercado NASDAQ",
-  "short_name": "NASDAQApp",
+  "name": "NASDAQ Analyzer",
+  "short_name": "NASDAQ",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
+  "background_color": "#000000",
   "theme_color": "#000000",
-  "description": "Una aplicaci\u00f3n para analizar el mercado NASDAQ en tiempo real con se\u00f1ales de compra y venta.",
+  "description": "Análisis técnico en tiempo real para el NASDAQ.",
   "icons": [
     {
       "src": "/icon-192.png",
