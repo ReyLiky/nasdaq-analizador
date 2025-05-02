@@ -5,7 +5,7 @@ const FILES_TO_CACHE = [
   "/manifest.json",
   "/icon-192.png",
   "/icon-512.png",
-  "/src/main.jsx"
+  "/main.jsx"
 ];
 
 self.addEventListener("install", (event) => {
@@ -33,8 +33,18 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener("fetch", (event) => {
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.match(event.request).then((cachedResponse) => {
+        const fetchPromise = fetch(event.request)
+          .then((networkResponse) => {
+            if (networkResponse && networkResponse.status === 200) {
+              cache.put(event.request, networkResponse.clone());
+            }
+            return networkResponse;
+          })
+          .catch(() => cachedResponse);
+        return cachedResponse || fetchPromise;
+      });
     })
   );
 });
